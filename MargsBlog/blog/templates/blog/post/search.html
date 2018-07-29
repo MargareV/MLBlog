@@ -1,0 +1,25 @@
+{% extends 'blog/base.html' %}
+{% load crispy_forms_tags %}
+
+{% block title %}Search{% endblock %}
+{% block content  %}
+{% if "query" in request.GET %}
+<h3>Posts containing "{{ cd.query }}"</h3>
+<h5>Found {{ total_results }} result{{ total_results|pluralize }}</h5>
+{% for result in results %}
+{% with post=result.object %}
+<h4><a href="{{ post.get_absolute_url }}">{{ post.title }}</a></h4>
+{{ post.body|truncatewords:5 }}
+{% endwith %}
+{% empty %}
+<p>There are no results for your search.</p>
+{% endfor %}
+<br><small><a href="{% url "blog:post_search" %}">Search Again</a></small>
+{% else %}
+<h1>Search For Posts</h1>
+<form action="." method="get">
+	{{ form|crispy }}
+	<input type="submit" value="Search">
+</form>
+{% endif %}
+{% endblock %}

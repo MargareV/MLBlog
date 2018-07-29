@@ -1,0 +1,6 @@
+<div class="list-group col-sm">
+	<h5 class="list-group-item" >Latest posts</h5>
+	{% for post in latest_posts %}
+	<u><a href="{{ post.get_absolute_url }}" class="list-group-item" style="color: black;">{{ post.title }} - By {{ post.author }}</a></u>
+	{% endfor %}
+</div><br>
